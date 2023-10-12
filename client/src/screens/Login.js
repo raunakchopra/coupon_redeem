@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({
@@ -10,10 +11,17 @@ const LoginPage = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add your login logic here
-        console.log(formData);
+        try {
+            const response = await axios.post('http://localhost:8080/access/login', formData);
+            // Handle the response if needed
+            localStorage.setItem('user', JSON.stringify(response.data));
+            window.location.href = '/home'
+        } catch (error) {
+            // Handle the error if the request fails
+            console.error(error);
+        }
     };
 
     return (

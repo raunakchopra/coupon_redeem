@@ -11,6 +11,10 @@ class Coupon {
                 type: String,
                 required: true
             },
+            amount: {
+                type: Number,
+                required: true
+            },
             totalQuota: {
                 type: Number,
                 required: true

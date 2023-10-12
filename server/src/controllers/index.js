@@ -12,7 +12,8 @@ class Controllers {
             access: services.accessService,
         });
         this.couponController = new CouponController({
-            coupon: services.couponService
+            coupon: services.couponService,
+            user: services.userService,
         })
 
     }

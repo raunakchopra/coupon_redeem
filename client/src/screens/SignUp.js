@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const SignupPage = () => {
     const [formData, setFormData] = useState({
@@ -14,10 +15,26 @@ const SignupPage = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const validateHKID = (hkid) => {
+        // HKID format regex (allows both uppercase and lowercase characters)
+        const hkidRegex = /^[a-zA-Z]{1,2}[0-9]{6}([0-9aA])$/;
+
+        return hkidRegex.test(hkid);
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add your form submission logic here
-        console.log(formData);
+        try {
+
+            if (!validateHKID(formData.hkid)) {
+                alert('Invalid HKID format');
+                return;
+            }
+            const response = await axios.post('http://localhost:8080/user/signup', formData);
+            window.location.href = '/login'
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

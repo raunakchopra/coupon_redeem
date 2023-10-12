@@ -7,7 +7,7 @@ const {
 } = process.env;
 
 const application = app();
-const PORT = process.env.PORT || process.env.PUBLIC_PORT || 3000;
+const PORT = process.env.PORT || process.env.PUBLIC_PORT || 8080;
 application.app.listen(PORT, () => {
     logger.info(`Server is up on port ${PORT}`);
 });
